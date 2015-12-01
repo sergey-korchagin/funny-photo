@@ -73,10 +73,10 @@ public class SplashScreenFragment extends Fragment {
        // thread.start();
         return root;
     }
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        ((MainActivity) activity).hideActionbar();
-
-    }
+//    @Override
+//    public void onAttach(Activity activity) {
+//        super.onAttach(activity);
+//        ((MainActivity) activity).hideActionbar();
+//
+//    }
 }

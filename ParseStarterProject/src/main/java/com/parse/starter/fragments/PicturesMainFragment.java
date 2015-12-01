@@ -194,13 +194,13 @@ int querySize;
         });
     }
 
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        if(activity!=null){
-            ((MainActivity) activity).showActionbar();
-        }
-    }
+//    @Override
+//    public void onAttach(Activity activity) {
+//        super.onAttach(activity);
+//        if(activity!=null){
+//            ((MainActivity) activity).showActionbar();
+//        }
+//    }
 
     @Override
     public void onResume() {
