@@ -22,6 +22,7 @@ import com.parse.ParseAnalytics;
 import com.parse.starter.fragments.PicturesMainFragment;
 import com.parse.starter.fragments.SplashScreenFragment;
 import com.parse.starter.managers.ActionbarManager;
+import com.parse.starter.utils.Constants;
 import com.parse.starter.utils.Utils;
 
 
@@ -33,12 +34,14 @@ public class MainActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
 
-    ParseAnalytics.trackAppOpenedInBackground(getIntent());
+      ParseAnalytics.trackAppOpenedInBackground(getIntent());
       ActionbarManager.getInstance().init(this, getSupportActionBar());
+
+      Constants.ACTIONBAR_HEIGHT = getSupportActionBar().getHeight();
 
 
       SplashScreenFragment splashScreenFragment = new SplashScreenFragment();
-    Utils.replaceFragment(getFragmentManager(), android.R.id.content, splashScreenFragment, false);
+      Utils.replaceFragment(getFragmentManager(), android.R.id.content, splashScreenFragment, false);
   }
 
     public void hideActionbar() {

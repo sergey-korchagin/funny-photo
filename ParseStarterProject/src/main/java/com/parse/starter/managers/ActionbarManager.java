@@ -19,6 +19,8 @@ import com.parse.starter.R;
 public class ActionbarManager {
 
 
+
+
     private static ActionbarManager ourInstance = new ActionbarManager();
 
     public static ActionbarManager getInstance() {
@@ -31,7 +33,6 @@ public class ActionbarManager {
 
     public void setButtonsListener(View.OnClickListener listener) {
     }
-
 
 
 

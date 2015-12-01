@@ -19,6 +19,7 @@ public final class R {
         public static final int abc_slide_in_top=0x7f050007;
         public static final int abc_slide_out_bottom=0x7f050008;
         public static final int abc_slide_out_top=0x7f050009;
+        public static final int shake=0x7f05000a;
     }
     public static final class attr {
         /** <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
@@ -1543,7 +1544,7 @@ containing a value of this type.
         public static final int action_mode_bar=0x7f0c003d;
         public static final int action_mode_bar_stub=0x7f0c003c;
         public static final int action_mode_close_button=0x7f0c0025;
-        public static final int action_settings=0x7f0c0061;
+        public static final int action_settings=0x7f0c0063;
         public static final int activity_chooser_view_content=0x7f0c0026;
         public static final int alertTitle=0x7f0c0030;
         public static final int always=0x7f0c0016;
@@ -1566,19 +1567,21 @@ containing a value of this type.
         public static final int end_padder=0x7f0c005b;
         public static final int expand_activities_button=0x7f0c0027;
         public static final int expanded_menu=0x7f0c0037;
-        public static final int frameLayout=0x7f0c005f;
+        public static final int footerLayout=0x7f0c005f;
+        public static final int frameLayout=0x7f0c0060;
         public static final int home=0x7f0c0004;
         public static final int homeAsUp=0x7f0c000d;
         public static final int icon=0x7f0c002b;
         public static final int ifRoom=0x7f0c0018;
         public static final int image=0x7f0c0028;
+        public static final int imageView=0x7f0c0062;
         public static final int info=0x7f0c005a;
         public static final int line1=0x7f0c0054;
         public static final int line3=0x7f0c0058;
         public static final int listMode=0x7f0c0009;
         public static final int list_item=0x7f0c002a;
         public static final int media_actions=0x7f0c0052;
-        public static final int menu_item_share=0x7f0c0062;
+        public static final int menu_item_share=0x7f0c0064;
         public static final int middle=0x7f0c0015;
         public static final int multiply=0x7f0c001e;
         public static final int never=0x7f0c0019;
@@ -1587,7 +1590,7 @@ containing a value of this type.
         public static final int parentPanel=0x7f0c002d;
         public static final int photos_image_pager=0x7f0c005e;
         public static final int progressBar=0x7f0c005d;
-        public static final int progressBar2=0x7f0c0060;
+        public static final int progressBar2=0x7f0c0061;
         public static final int progress_circular=0x7f0c0005;
         public static final int progress_horizontal=0x7f0c0006;
         public static final int radio=0x7f0c003a;

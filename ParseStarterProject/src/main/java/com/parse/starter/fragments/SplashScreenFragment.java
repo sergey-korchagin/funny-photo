@@ -7,7 +7,10 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 
 import com.parse.ParseUser;
 import com.parse.starter.MainActivity;
@@ -24,26 +27,50 @@ public class SplashScreenFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.splash_screen_fragment, container, false);
-        thread = new Thread() {
-            @Override
-            public void run() {
-                try {
-                    synchronized (this) {
-                        wait(2000);
+        final View root = inflater.inflate(R.layout.splash_screen_fragment, container, false);
+//        thread = new Thread() {
+//            @Override
+//            public void run() {
+//                try {
+//                    synchronized (this) {
+//                        wait(2000);
+//                 ;
+//                    }
+//                } catch (InterruptedException ex) {
+//                }
+//                // Получим ссылку на солнце
+                ImageView sunImageView = (ImageView)root.findViewById(R.id.imageView);
+                // Анимация для восхода солнца
+                Animation sunRiseAnimation = AnimationUtils.loadAnimation(getActivity(), R.anim.shake);
+
+                sunRiseAnimation.setAnimationListener(new Animation.AnimationListener() {
+                    @Override
+                    public void onAnimationStart(Animation animation) {
+
                     }
-                } catch (InterruptedException ex) {
-                }
 
-                PicturesMainFragment picturesMainFragment = new PicturesMainFragment();
-                Utils.replaceFragment(getFragmentManager(), android.R.id.content, picturesMainFragment, false);
+                    @Override
+                    public void onAnimationEnd(Animation animation) {
+                        PicturesMainFragment picturesMainFragment = new PicturesMainFragment();
+                        Utils.replaceFragment(getFragmentManager(), android.R.id.content, picturesMainFragment, false);
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animation animation) {
+
+                    }
+                });
+                // Подключаем анимацию к нужному View
+                sunImageView.startAnimation(sunRiseAnimation);
+
+//
 
 
 
-            }
-        };
+          //  }
+      //  };
 
-        thread.start();
+       // thread.start();
         return root;
     }
     @Override

@@ -15,6 +15,7 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.parse.FindCallback;
 import com.parse.GetDataCallback;
@@ -26,6 +27,7 @@ import com.parse.ParseUser;
 import com.parse.starter.MainActivity;
 import com.parse.starter.R;
 import com.parse.starter.adapters.PhotoPagerAdapter;
+import com.parse.starter.utils.Constants;
 
 import java.io.OutputStream;
 import java.util.List;
@@ -51,8 +53,11 @@ int querySize;
         mPager = (ViewPager) root.findViewById(R.id.photos_image_pager);
 
         mPager.addOnPageChangeListener(this);
-getQuerySize();
+        getQuerySize();
         getCategories();
+
+
+
         return root;
     }
 
@@ -178,6 +183,17 @@ getQuerySize();
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        ((MainActivity) activity).showActionbar();
+        if(activity!=null){
+            ((MainActivity) activity).showActionbar();
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getCategories();
+        getQuerySize();
+        mPager.addOnPageChangeListener(this);
+
     }
 }

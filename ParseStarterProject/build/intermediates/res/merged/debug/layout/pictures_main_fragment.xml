@@ -7,6 +7,15 @@
         android:id="@+id/photos_image_pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="center" />
+        android:layout_gravity="center"
+        android:layout_weight="1" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/violet"
+        android:layout_weight="9"
+        android:id="@+id/footerLayout"></LinearLayout>
 
 </LinearLayout><!-- From: file:/C:/Users/User/Desktop/funny-photo/ParseStarterProject/src/main/res/layout/pictures_main_fragment.xml -->
