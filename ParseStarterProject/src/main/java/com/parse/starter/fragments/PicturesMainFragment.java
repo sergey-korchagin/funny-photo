@@ -29,6 +29,8 @@ import com.parse.starter.R;
 import com.parse.starter.adapters.PhotoPagerAdapter;
 import com.parse.starter.utils.Constants;
 
+import java.io.File;
+import java.io.IOException;
 import java.io.OutputStream;
 import java.util.List;
 
@@ -44,7 +46,8 @@ public class PicturesMainFragment extends Fragment implements ViewPager.OnPageCh
     int skip = 0;
 int querySize;
     boolean first;
-    @Nullable
+    Uri previous = null;
+    boolean firstTime = true;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.pictures_main_fragment, container, false);
@@ -88,38 +91,48 @@ int querySize;
     public void onPageSelected(int position) {
         if(categories.get(position).get("mPicture")!=null){
             ParseFile applicantResume = (ParseFile) categories.get(position).get("mPicture");
-            applicantResume.getDataInBackground(new GetDataCallback() {
-                public void done(byte[] data, ParseException e) {
-                    if (e == null) {
-                        Bitmap bmp = BitmapFactory.decodeByteArray(data, 0, data.length);
-                        Intent share = new Intent(Intent.ACTION_SEND);
-                        share.setType("image/jpeg");
+            applicantResume.getUrl();
+//            applicantResume.getDataInBackground(new GetDataCallback() {
+//                public void done(byte[] data, ParseException e) {
+//                    if (e == null) {
+//                        Bitmap bmp = BitmapFactory.decodeByteArray(data, 0, data.length);
+//                        Intent share = new Intent(Intent.ACTION_SEND);
+//                        share.setType("image/jpeg");
+//
+//                        ContentValues values = new ContentValues();
+//                        values.put(MediaStore.Images.Media.TITLE, "title");
+//                        values.put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg");
+//                        Uri uri = getActivity().getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+//                                values);
+//
+//                        OutputStream outstream;
+//                        try {
+//                            outstream = getActivity().getContentResolver().openOutputStream(uri);
+//                            bmp.compress(Bitmap.CompressFormat.JPEG, 100, outstream);
+//                            outstream.close();
+//                        } catch (Exception ex) {
+//                            System.err.println(e.toString());
+//                        }
+//
+//                        share.putExtra(Intent.EXTRA_STREAM, uri);
+//                        ((MainActivity) getActivity()).setShareIntent(share);
+//
+//
+//                    } else {
+//                        e.printStackTrace();
+//                    }
+//                }
+//            });
 
-                        ContentValues values = new ContentValues();
-                        values.put(MediaStore.Images.Media.TITLE, "title");
-                        values.put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg");
-                        Uri uri = getActivity().getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
-                                values);
+//            Intent share = new Intent(Intent.ACTION_SEND);
+//                   share.setType("text/plain");
+//            share.putExtra(Intent.EXTRA_STREAM, "test");
+//                       ((MainActivity) getActivity()).setShareIntent(share);
+            Intent shareIntent = new Intent(Intent.ACTION_SEND);
+            shareIntent.setType("text/plain");
+            shareIntent.putExtra(Intent.EXTRA_TEXT, applicantResume.getUrl());
+            ((MainActivity) getActivity()).setShareIntent(shareIntent);
 
-
-                        OutputStream outstream;
-                        try {
-                            outstream = getActivity().getContentResolver().openOutputStream(uri);
-                            bmp.compress(Bitmap.CompressFormat.JPEG, 100, outstream);
-                            outstream.close();
-                        } catch (Exception ex) {
-                            System.err.println(e.toString());
-                        }
-
-                        share.putExtra(Intent.EXTRA_STREAM, uri);
-                        ((MainActivity) getActivity()).setShareIntent(share);
-
-
-                    } else {
-                        e.printStackTrace();
-                    }
-                }
-            });
         }
 
         if (position%5==1 && skip<querySize){
@@ -142,7 +155,7 @@ int querySize;
                 public void done(Object o, Throwable throwable) {
                     if (o instanceof List) {
                         updatedCategories = (List<ParseObject>) o;
-                        mAdapter.getMorePhotos(updatedCategories,querySize);
+                        mAdapter.getMorePhotos(updatedCategories, querySize);
                         mAdapter.notifyDataSetChanged();
 
                     }
@@ -151,6 +164,7 @@ int querySize;
 
         }
     }
+
 
     @Override
     public void onPageScrollStateChanged(int state) {
@@ -191,9 +205,6 @@ int querySize;
     @Override
     public void onResume() {
         super.onResume();
-        getCategories();
-        getQuerySize();
-        mPager.addOnPageChangeListener(this);
 
     }
 }

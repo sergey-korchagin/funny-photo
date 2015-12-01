@@ -37,7 +37,6 @@ public class MainActivity extends AppCompatActivity {
       ParseAnalytics.trackAppOpenedInBackground(getIntent());
       ActionbarManager.getInstance().init(this, getSupportActionBar());
 
-      Constants.ACTIONBAR_HEIGHT = getSupportActionBar().getHeight();
 
 
       SplashScreenFragment splashScreenFragment = new SplashScreenFragment();
