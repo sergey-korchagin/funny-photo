@@ -3,6 +3,24 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="4"
+        android:background="@color/violet"
+        android:id="@+id/headerLayout">
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="fill_parent"
+            android:background="@drawable/abc_ic_menu_share_mtrl_alpha"
+            android:id="@+id/btnShare"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="10dp" />
+    </LinearLayout>
+
     <android.support.v4.view.ViewPager
         android:id="@+id/photos_image_pager"
         android:layout_width="match_parent"
@@ -15,7 +33,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/violet"
-        android:layout_weight="9"
+        android:layout_weight="4"
         android:id="@+id/footerLayout"></LinearLayout>
 
 </LinearLayout>
