@@ -3,37 +3,59 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
-        android:orientation="horizontal"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="7"
-        android:background="@color/violet"
-        android:id="@+id/headerLayout">
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="5"
+                android:gravity="right"
+                android:background="@color/violet"
+                android:id="@+id/headerLayout">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="fill_parent"
+                    android:background="@drawable/abc_ic_menu_share_mtrl_alpha"
+                    android:id="@+id/btnShare"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_gravity="right|center_horizontal|center_vertical" />
+
+            </LinearLayout>
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/photos_image_pager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1" />
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/violet"
+                android:layout_weight="5"
+                android:id="@+id/footerLayout">
+
+            </LinearLayout>
+        </LinearLayout>
 
         <ImageView
-            android:layout_width="20dp"
-            android:layout_height="fill_parent"
-            android:background="@drawable/abc_ic_menu_share_mtrl_alpha"
-            android:id="@+id/btnShare"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            android:layout_marginLeft="10dp" />
-    </LinearLayout>
-
-    <android.support.v4.view.ViewPager
-        android:id="@+id/photos_image_pager"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:layout_weight="1" />
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/violet"
-        android:layout_weight="7"
-        android:id="@+id/footerLayout"></LinearLayout>
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:id="@+id/smallImage"
+            android:layout_marginTop="30dp" />
+    </RelativeLayout>
 
 </LinearLayout>

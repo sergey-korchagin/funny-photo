@@ -11,6 +11,7 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.print.PrintAttributes;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.view.PagerAdapter;
@@ -58,6 +59,7 @@ public class PicturesMainFragment extends Fragment implements ViewPager.OnPageCh
     boolean mExternalStorageWriteable = false;
      int width = 0;
     int height = 0;
+    ImageView mSmallImage;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -69,9 +71,12 @@ public class PicturesMainFragment extends Fragment implements ViewPager.OnPageCh
 
 
         mPager.addOnPageChangeListener(this);
+
+        mSmallImage = (ImageView)root.findViewById(R.id.smallImage);
         checkIfStorageAvailable();
         getQuerySize();
         getCategories();
+        initSmallImage();
 
        final LinearLayout layout = (LinearLayout)root.findViewById(R.id.headerLayout);
 
@@ -85,7 +90,9 @@ public class PicturesMainFragment extends Fragment implements ViewPager.OnPageCh
 
             }
         });
-        LinearLayout.LayoutParams parms = new LinearLayout.LayoutParams(height-20,height-20);
+        LinearLayout.LayoutParams parms = new LinearLayout.LayoutParams(height-5,height-5);
+        parms.gravity = Gravity.CENTER;
+        parms.setMargins(0, 0, 30, 0);
         btnShare.setLayoutParams(parms);
         return root;
     }
@@ -278,6 +285,39 @@ public class PicturesMainFragment extends Fragment implements ViewPager.OnPageCh
             //  to know is we can neither read nor write
             mExternalStorageAvailable = mExternalStorageWriteable = false;
         }
+    }
+
+    public void initSmallImage(){
+        ParseQuery query = new ParseQuery("smallImage");
+        query.addDescendingOrder("createdAt");
+        query.setLimit(1);
+        query.findInBackground(new FindCallback() {
+            @Override
+            public void done(List objects, ParseException e) {
+            }
+            @Override
+            public void done(Object o, Throwable throwable) {
+                if (o instanceof List) {
+                    List<ParseObject> small = (List<ParseObject>) o;
+                    if(small.get(0).get("mImage") != null){
+                        ParseFile applicantResume = (ParseFile) small.get(0).get("mImage");
+                        applicantResume.getDataInBackground(new GetDataCallback() {
+                                                                public void done(byte[] data, ParseException e) {
+                            if (e == null) {
+                                Bitmap bmp = BitmapFactory.decodeByteArray(data, 0, data.length);
+                                 mSmallImage.setImageBitmap(bmp);
+                            } else {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+
+                        );
+
+                    }
+                }
+            }
+        });
     }
 
 
