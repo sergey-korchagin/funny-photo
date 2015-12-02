@@ -19,11 +19,15 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.parse.ParseAnalytics;
+import com.parse.ParseInstallation;
 import com.parse.starter.fragments.PicturesMainFragment;
+import com.parse.starter.fragments.SettingsFragment;
 import com.parse.starter.fragments.SplashScreenFragment;
 import com.parse.starter.managers.ActionbarManager;
 import com.parse.starter.utils.Constants;
 import com.parse.starter.utils.Utils;
+
+import java.util.Arrays;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -38,55 +42,43 @@ public class MainActivity extends AppCompatActivity {
      // ActionbarManager.getInstance().init(this, getSupportActionBar());
 
 
+      ParseInstallation installation = ParseInstallation.getCurrentInstallation();
+      installation.addAllUnique("channels", Arrays.asList("photos"));
+      installation.saveInBackground();
+
 
       SplashScreenFragment splashScreenFragment = new SplashScreenFragment();
       Utils.replaceFragment(getFragmentManager(), android.R.id.content, splashScreenFragment, false);
   }
 
-  /*  public void hideActionbar() {
 
-        getSupportActionBar().hide();
-    }
-
-    public void showActionbar() {
-        getSupportActionBar().show();
-    }*/
 
   @Override
   public boolean onCreateOptionsMenu(Menu menu) {
     // Inflate menu resource file.
-    //getMenuInflater().inflate(R.menu.menu_main, menu);
-      getMenuInflater().inflate(R.menu.share_menu, menu);
-
-    // Locate MenuItem with ShareActionProvider
-    MenuItem item = menu.findItem(R.id.menu_item_share);
-
-    // Fetch and store ShareActionProvider
-    mShareActionProvider =  (ShareActionProvider) MenuItemCompat.getActionProvider(item);
-      Intent shareIntent = new Intent(Intent.ACTION_SEND);
-      shareIntent.setType("text/plain");
-      shareIntent.putExtra(Intent.EXTRA_TEXT, "test");
-//      setShareIntent(shareIntent);
-      startActivity(Intent.createChooser(shareIntent, "Share This Website!"));
-
+    getMenuInflater().inflate(R.menu.menu_main, menu);
 
       // Return true to display menu
-    return true;
+      return true;
   }
 
     @Override
     public final boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.menu_item_share:
+            case R.id.action_settings:
+                SettingsFragment settingsFragment = new SettingsFragment();
+                Utils.replaceFragment(getFragmentManager(), android.R.id.content, settingsFragment, true);
+                return  true;
+            default:
+                return super.onOptionsItemSelected(item);
+
         }
-        return super.onOptionsItemSelected(item);
     }
 
-  // Call to update the share intent
-  public void setShareIntent(Intent shareIntent) {
-    if (mShareActionProvider != null) {
-      mShareActionProvider.setShareIntent(shareIntent);
-    }
-  }
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+       // getFragmentManager().popBackStackImmediate();
 
+    }
 }

@@ -13,6 +13,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import com.parse.ParseUser;
+import com.parse.PushService;
 import com.parse.starter.MainActivity;
 import com.parse.starter.R;
 import com.parse.starter.utils.Utils;
@@ -39,7 +40,9 @@ public class SplashScreenFragment extends Fragment {
 //                } catch (InterruptedException ex) {
 //                }
 //                // Получим ссылку на солнце
-                ImageView sunImageView = (ImageView)root.findViewById(R.id.imageView);
+
+
+        ImageView sunImageView = (ImageView)root.findViewById(R.id.imageView);
                 // Анимация для восхода солнца
                 Animation sunRiseAnimation = AnimationUtils.loadAnimation(getActivity(), R.anim.shake);
 
