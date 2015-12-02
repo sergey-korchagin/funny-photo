@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
     setContentView(R.layout.activity_main);
 
       ParseAnalytics.trackAppOpenedInBackground(getIntent());
-      ActionbarManager.getInstance().init(this, getSupportActionBar());
+     // ActionbarManager.getInstance().init(this, getSupportActionBar());
 
 
 
@@ -43,14 +43,14 @@ public class MainActivity extends AppCompatActivity {
       Utils.replaceFragment(getFragmentManager(), android.R.id.content, splashScreenFragment, false);
   }
 
-    public void hideActionbar() {
+  /*  public void hideActionbar() {
 
         getSupportActionBar().hide();
     }
 
     public void showActionbar() {
         getSupportActionBar().show();
-    }
+    }*/
 
   @Override
   public boolean onCreateOptionsMenu(Menu menu) {
@@ -63,12 +63,14 @@ public class MainActivity extends AppCompatActivity {
 
     // Fetch and store ShareActionProvider
     mShareActionProvider =  (ShareActionProvider) MenuItemCompat.getActionProvider(item);
-//      Intent shareIntent = new Intent(Intent.ACTION_SEND);
-//      shareIntent.setType("text/plain");
-//      shareIntent.putExtra(Intent.EXTRA_TEXT, "test");
+      Intent shareIntent = new Intent(Intent.ACTION_SEND);
+      shareIntent.setType("text/plain");
+      shareIntent.putExtra(Intent.EXTRA_TEXT, "test");
 //      setShareIntent(shareIntent);
+      startActivity(Intent.createChooser(shareIntent, "Share This Website!"));
 
-    // Return true to display menu
+
+      // Return true to display menu
     return true;
   }
 
