@@ -19,6 +19,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.view.Window;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -55,10 +56,12 @@ public class PicturesMainFragment extends Fragment implements ViewPager.OnPageCh
     ImageView btnShare;
     boolean mExternalStorageAvailable = false;
     boolean mExternalStorageWriteable = false;
+     int width = 0;
+    int height = 0;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.pictures_main_fragment, container, false);
+       final View root = inflater.inflate(R.layout.pictures_main_fragment, container, false);
 
         btnShare = (ImageView) root.findViewById(R.id.btnShare);
         btnShare.setOnClickListener(this);
@@ -70,7 +73,20 @@ public class PicturesMainFragment extends Fragment implements ViewPager.OnPageCh
         getQuerySize();
         getCategories();
 
+       final LinearLayout layout = (LinearLayout)root.findViewById(R.id.headerLayout);
 
+        ViewTreeObserver vto = layout.getViewTreeObserver();
+        vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                root.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+               width  = layout.getMeasuredWidth();
+                height = layout.getMeasuredHeight();
+
+            }
+        });
+        LinearLayout.LayoutParams parms = new LinearLayout.LayoutParams(height-20,height-20);
+        btnShare.setLayoutParams(parms);
         return root;
     }
 
@@ -263,4 +279,6 @@ public class PicturesMainFragment extends Fragment implements ViewPager.OnPageCh
             mExternalStorageAvailable = mExternalStorageWriteable = false;
         }
     }
+
+
 }
